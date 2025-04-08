@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+    <script>
+        class WebSites 
+		{
+            constructor(title, url) 
+			{
+                this.title = title; 
+                this.url = url;     
+            }
+            show() 
+			{
+			document.write(`<p>${this.title}URL: <a href="${this.url}">${this.url}</a></p>`);
+			}
+        }
+        window.onload = function() 
+		{
+            const site1 = new WebSites("Yandex", "https://ya.ru");
+            site1.show();
+			const site2 = new WebSites("Google", "https://google.com");
+            site2.show();
+			const site3 = new WebSites("Mail", "https://mail.ru");
+            site3.show();
+        };
+    </script>
+</head>
+<body>
+</body>
+</html>

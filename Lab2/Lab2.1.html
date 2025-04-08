@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+    <title></title>
+    <style>
+        img 
+		{
+            transition: transform 1s;
+        }
+    </style>
+</head>
+<body>
+    <img id="image" src="Image.jpg" width="700" style="cursor: pointer; display: block; margin: 350px auto;">
+    <script>
+        const image = document.getElementById('image');
+        var isEnlarged = false;
+
+        image.addEventListener('click', () => {
+            if (isEnlarged) {
+                image.style.transform = 'scale(1)';
+            } else {
+                image.style.transform = 'scale(2)';
+            }
+            isEnlarged = !isEnlarged;
+        });
+    </script>
+</body>
+</html>

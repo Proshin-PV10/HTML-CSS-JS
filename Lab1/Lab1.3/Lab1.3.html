@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+    <script>
+        function getDayForm(n) {
+            if (n % 10 == 1 && n % 100 != 11) {
+                return 'день';
+            } else if ((n % 10 >= 2 && n % 10 <= 4) && (n % 100 < 12 || n % 100 > 14)) {
+                return 'дня';
+            } else {
+                return 'дней';
+            }
+        }
+        function displayMessage() {
+            const numberOfDays = parseInt(document.getElementById('daysInput').value);
+            const dayForm = getDayForm(numberOfDays);
+            const message = `До конца Вашей учебы остается ${numberOfDays} ${dayForm}.`;
+            document.getElementById('result').innerText = message;
+        }
+    </script>
+</head>
+<body>    
+    <label for="daysInput">Введите количество дней:</label>
+    <input type="number" id="daysInput" />
+    <button onclick="displayMessage()">Показать сообщение</button>
+    <p id="result"></p>
+</body>
+</html>
