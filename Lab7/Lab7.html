@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Worker</title>
+</head>
+<body>
+    <button id="startWorker">Запустить Worker</button>
+    <div id="result"></div>
+    <script>
+        document.getElementById("startWorker").onclick = function() {
+            var worker = new Worker("worker.js");
+            worker.onmessage = function(evt) {
+                alert("Инициализация массива данных завершена!");
+                var data = evt.data;
+                document.getElementById("result").innerText = "Данные успешно получены!" + JSON.stringify(data);
+            };
+            worker.postMessage(null);    
+        };
+    </script>
+</body>
+</html>
