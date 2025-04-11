@@ -6,42 +6,51 @@ document.addEventListener('DOMContentLoaded', function() {
             navigator.geolocation.getCurrentPosition(function(position) {
                 var latitude = position.coords.latitude;
                 var longitude = position.coords.longitude;
-                document.getElementById('coordinates').value = `${latitude}, ${longitude}`;
+                var coordinatesInput = document.getElementById('coordinates');
+                if (coordinatesInput) {
+                    coordinatesInput.value = `${latitude}, ${longitude}`;
+                }
                 getCityFromCoordinates(latitude, longitude);
             });
+        } else {
+            document.write("Нет поддержки HTML5 Geolocation.");
         }
 
         contactForm.addEventListener('submit', function(event) {
             event.preventDefault();
 
-            var name = document.getElementById('name').value;
-            var phone = document.getElementById('phone').value;
-            var email = document.getElementById('email').value;
-            var city = document.getElementById('city').value;
-            var coordinates = document.getElementById('coordinates').value;
-            var message = document.getElementById('message').value;
-            var date = new Date().toLocaleString();
+            var nameInput = document.getElementById('name');
+            var phoneInput = document.getElementById('phone');
+            var emailInput = document.getElementById('email');
+            var cityInput = document.getElementById('city');
+            var coordinatesInput = document.getElementById('coordinates');
+            var messageInput = document.getElementById('message');
 
-            var application = {
-                name,
-                phone,
-                email,
-                city,
-                coordinates,
-                message,
-                date
-            };
+            if (nameInput && phoneInput && emailInput && cityInput && coordinatesInput && messageInput) {
+                var application = {
+                    name: nameInput.value,
+                    phone: phoneInput.value,
+                    email: emailInput.value,
+                    city: cityInput.value,
+                    coordinates: coordinatesInput.value,
+                    message: messageInput.value,
+                    date: new Date().toLocaleString()
+                };
 
-            var applications = JSON.parse(localStorage.getItem('applications')) || [];
-            applications.push(application);
-            localStorage.setItem('applications', JSON.stringify(applications));
+                var applications = JSON.parse(localStorage.getItem('applications')) || [];
+                applications.push(application);
+                localStorage.setItem('applications', JSON.stringify(applications));
 
-            contactForm.reset();
-            alert('Ваша заявка отправлена!');
+                contactForm.reset();
+                alert('Ваша заявка отправлена!');
+            } else {
+                alert('Некоторые поля формы не найдены.');
+            }
         });
+    } else {
+        console.error("Форма обратной связи не найдена.");
     }
 });
-
 
 function getCityFromCoordinates(lat, lon) {
     var moscowBounds = {
@@ -67,6 +76,7 @@ function getCityFromCoordinates(lat, lon) {
                lon <= spbBounds.east && lon >= spbBounds.west) {
         city = 'Санкт-Петербург';
     } 
+
     var cityInput = document.getElementById('city');
     if (cityInput) {
         cityInput.value = city;
